@@ -107,15 +107,33 @@ class HomeController extends Controller
              $a['onoma'] <=> $b['onoma'] ?:
              strnatcasecmp($a['patronimo'], $b['patronimo']);
            });
-/*
-           $uniqueTmimata = array_unique(array_column($arrStudents, 'tmima'));
-           $arrTaxeis = array();
-           foreach ($uniqueTmimata as $tmi){
-             $arrTaxeis[]= mb_substr(preg_replace('/\d/', '', $tmi),0,1);
-           }
-            $uniqueTaxeis = array_values(array_unique($arrTaxeis));
-           dd($uniqueTaxeis);
-*/
+      $taxeis = array();
+      foreach( $arrStudents as $stu){
+        if (! in_array(mb_substr($stu['tmima'], 0 , 1), $taxeis))$taxeis[] = mb_substr($stu['tmima'], 0 , 1);
+      }
+
+      $sumApousies = array();
+      foreach ($taxeis as $taxi){
+        $sumApousies[$taxi]['1']= 0;
+        $sumApousies[$taxi]['2']= 0;
+        $sumApousies[$taxi]['3']= 0;
+        $sumApousies[$taxi]['total']= 0;
+      }
+      $sumApousiesCheck = $sumApousies;
+            foreach( $arrStudents as $stu){
+        $appSum = array_sum(preg_split("//",$stu['apousies']));
+        foreach ($taxeis as $taxi){
+          if ($taxi == mb_substr($stu['tmima'], 0 , 1)){
+            if($appSum == '1') $sumApousies[$taxi]['1']= $sumApousies[$taxi]['1'] + 1;
+            if($appSum == '2') $sumApousies[$taxi]['2']= $sumApousies[$taxi]['2'] + 1;
+            if($appSum >= '3') $sumApousies[$taxi]['3']= $sumApousies[$taxi]['3'] + 1;
+            if($appSum) $sumApousies[$taxi]['total']= $sumApousies[$taxi]['total'] + 1;
+          }
+
+        }
+      }
+      if ($sumApousiesCheck == $sumApousies) $sumApousies = [];
+      
       //διαβάζω ρυθμίσεις από τον πίνακα configs
       $program = new Program;
       // οι ώρες του προγράμματος
@@ -133,7 +151,7 @@ class HomeController extends Controller
       // παίρνω την ημέρα και αλλάζω το format της ημνιας από εεεεμμηη σε ηη/μμ/εε
       $date = Carbon::createFromFormat("!Ymd", $date)->format("d/m/y");
 
-      return view('home' ,compact( 'date', 'anatheseis', 'selectedTmima', 'totalHours', 'activeHour', 'hoursUnlocked', 'letTeachersUnlockHours', 'showFutureHours', 'arrStudents'));
+      return view('home' ,compact( 'date', 'anatheseis', 'selectedTmima', 'totalHours', 'activeHour', 'hoursUnlocked', 'letTeachersUnlockHours', 'showFutureHours', 'arrStudents', 'taxeis', 'sumApousies'));
     }
 
 

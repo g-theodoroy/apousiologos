@@ -32,15 +32,42 @@
                         </p>
                       </div>
                     </header>
-
-
+                    @if($isAdmin && $sumApousies)
+                    <div class="card-content">
+                      <div class="columns is-centered">
+                        <div class="column is-narrow">
+                      <table class="table is-narrow">
+                        <thead>
+                          <tr>
+                            <th>Τάξη</th>
+                            <th>1 ώρα</th>
+                            <th>2 ώρες</th>
+                            <th>3 και πανω</th>
+                            <th>Σύνολο</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @foreach( $taxeis as $taxi)
+                          <tr>
+                            <th class='has-text-centered'>{{$taxi}}</th>
+                            @foreach($sumApousies[$taxi] as $key => $value)
+                            <th class='has-text-centered'>{{$value ? $value : ''}}</th>
+                            @endforeach
+                          </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                    @endif
                     <div class="card-content">
                       <div class="columns is-centered">
                         <div class="column is-narrow">
                           <div class="level has-text-centered ">
                             @if(($selectedTmima && count($arrStudents)) || ($isAdmin && count($arrStudents)))
                           <p class="card-header-title level-item">
-                            {{$selectedTmima?$selectedTmima:'Όλα τα τμήματα'}}
+                            {{$selectedTmima?$selectedTmima:'Όλα τα τμήματα'}}{{$activeHour}}
                             @if($isAdmin)
                             <br>{{$date}}
                             @endif
