@@ -123,7 +123,11 @@ class AdminController extends Controller
     $apoDate = request()->apoDate;
     $eosDate = request()->eosDate;
     if( $apoDate && $eosDate){
-      $filenameDates = '_από_' . Carbon::createFromFormat("!d/m/y", $apoDate)->format("Ymd") . '_έως_' . Carbon::createFromFormat("!d/m/y", $eosDate)->format("Ymd");
+      if ($apoDate == $eosDate){
+        $filenameDates = '_για_τις_' . Carbon::createFromFormat("!d/m/y", $apoDate)->format("Ymd");
+      }else{
+        $filenameDates = '_από_' . Carbon::createFromFormat("!d/m/y", $apoDate)->format("Ymd") . '_έως_' . Carbon::createFromFormat("!d/m/y", $eosDate)->format("Ymd");
+      }
     }elseif(! $apoDate && $eosDate){
       $filenameDates = '_έως_τις_' . Carbon::createFromFormat("!d/m/y", $eosDate)->format("Ymd");
     }elseif( $apoDate && ! $eosDate){
