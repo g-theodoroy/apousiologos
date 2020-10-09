@@ -8,7 +8,7 @@
         <div class="columns is-marginless is-centered">
             <div class="column is-10">
                 <nav class="card">
-                  <form name="formApousies" id="formApousies" role="form" method="POST" action="{{ url('/home', $selectedTmima ) }}">
+                  <form name="formApousies" id="formApousies" role="form" method="POST" action="{{ url('/home', $selectedTmima ) }}" onsubmit="event.preventDefault();formValidateDate()">
                   {{ csrf_field() }}
                     <header class="card-header">
                       <div class="level">
@@ -40,20 +40,26 @@
                         <thead>
                           <tr>
                             <th>Τάξη</th>
-                            <th>1 ώρα</th>
-                            <th>2 ώρες</th>
-                            <th>3 και πανω</th>
+                            @for($i=1; $i<8; $i++)
+                            <th>{{$i}}</th>
+                            @endfor
                             <th>Σύνολο</th>
+                            @for($i=2; $i<7; $i++)
+                            <th>>={{$i}}</th>
+                            @endfor
                           </tr>
                         </thead>
                         <tbody>
                           @foreach( $taxeis as $taxi)
                           <tr>
-                            <th class='has-text-centered'>{{$taxi}}</th>
-                            @foreach($sumApousies[$taxi] as $key => $value)
+                            <th class='has-text-centered' >{{$taxi}}</th>
+                            @foreach($sumApousies[$taxi]['eq'] as $key => $value)
                             <th class='has-text-centered'>{{$value ? $value : ''}}</th>
                             @endforeach
-                          </tr>
+                          @foreach($sumApousies[$taxi]['ov'] as $key => $value)
+                          <th class='has-text-centered'>{{$value ? $value : ''}}</th>
+                          @endforeach
+                        </tr>
                           @endforeach
                         </tbody>
                       </table>
