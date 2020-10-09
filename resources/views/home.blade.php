@@ -67,7 +67,7 @@
                           <div class="level has-text-centered ">
                             @if(($selectedTmima && count($arrStudents)) || ($isAdmin && count($arrStudents)))
                           <p class="card-header-title level-item">
-                            {{$selectedTmima?$selectedTmima:'Όλα τα τμήματα'}}{{$activeHour}}
+                            {{$selectedTmima?$selectedTmima:'Όλα τα τμήματα'}}
                             @if($isAdmin)
                             <br>{{$date}}
                             @endif
