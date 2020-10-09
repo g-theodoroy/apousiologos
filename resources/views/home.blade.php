@@ -73,19 +73,19 @@
                             @endif
                           </p>
 
-                          @if(! $isAdmin && ! $activeHour)
+                          @if(! $isAdmin && ! $activeHour && ! $hoursUnlocked)
                           <p class="card-header-title level-item">
                             Εκτός ωραρίου
                           </p>
                           @endif
-                          @if(  $isAdmin ||  $activeHour != 0)
+                          @if(  $isAdmin ||  $activeHour != 0 || $hoursUnlocked)
                           <a class="button level-item" onclick="formValidateDate()" >
                             <span class="icon">
                               <i class="fa fa-save"></i>
                             </span>
                             <span>Αποθήκευση</span>
                           </a>
-                          @if($letTeachersUnlockHours && $activeHour > 0)
+                          @if($letTeachersUnlockHours && $activeHour > 0 && ! $hoursUnlocked)
                           <a class="button level-item" onclick="unlockChks()" >
                             <span class="icon">
                               <i class="fa fa-key"></i>
@@ -104,13 +104,13 @@
                           @endif
                           <th>{{!$selectedTmima ?'Τμ':''}}</th>
                           <th>Ονοματεπώνυμο</th>
-                          <th @if(! $isAdmin && ! $activeHour ) style="display:none;" @endif><span class="icon">
+                          <th @if(! $isAdmin && ! $activeHour && ! $hoursUnlocked ) style="display:none;" @endif><span class="icon">
                             <i class="fa fa-calculator"></i>
                           </span></th>
                           @for($i = 1; $i < $totalHours + 1; $i++)
                           @if($activeHour>0)
                             <th @if($i == $activeHour ) style="background-color: #f2f2f2;" @endif @if(!$isAdmin && ! $showFutureHours && $i > $activeHour ) style="display:none;" @endif >{{$i}}η</th>
-                          @elseif(!$isAdmin && $activeHour==0)
+                          @elseif(!$isAdmin && $activeHour==0 && ! $hoursUnlocked)
                             <th style="display:none;" >{{$i}}η</th>
                           @else
                           <th @if($i % 2 != 0) style="background-color: #f2f2f2;" @endif >{{$i}}η</th>
@@ -133,11 +133,11 @@
                             <input class="input" id="ap{{$student['id']}}" name="ap{{$student['id']}}" value="{{$student['apousies']}}" type="hidden" size="5" />
                             {{$student['eponimo']}} {{$student['onoma']}}
                           </td>
-                          <th class="has-text-centered" @if(! $isAdmin && ! $activeHour ) style="display:none;" @endif>{{array_sum(preg_split("//",$student['apousies'] ))>0?array_sum(preg_split("//",$student['apousies'] )):''}}</th>
+                          <th class="has-text-centered" @if(! $isAdmin && ! $activeHour && ! $hoursUnlocked ) style="display:none;" @endif>{{array_sum(preg_split("//",$student['apousies'] ))>0?array_sum(preg_split("//",$student['apousies'] )):''}}</th>
                           @for($i = 1; $i < $totalHours + 1; $i++)
                           @if($activeHour>0)
                             <th @if($i == $activeHour ) style="background-color: #f2f2f2;" @endif  @if( ! $isAdmin && ! $showFutureHours && $i > $activeHour ) style="display:none;" @endif >
-                          @elseif(!$isAdmin && $activeHour==0)
+                          @elseif(!$isAdmin && $activeHour==0 && ! $hoursUnlocked)
                             <th style="display:none;" >
                           @else
                             <th @if($i % 2 != 0) style="background-color: #f2f2f2;" @endif >
@@ -157,19 +157,19 @@
                     <br>{{$date}}
                     @endif
                   </p>
-                  @if(! $isAdmin && ! $activeHour)
+                  @if(! $isAdmin && ! $activeHour && ! $hoursUnlocked)
                   <p class="card-header-title level-item">
                     Εκτός ωραρίου
                   </p>
                   @endif
-                  @if( $isAdmin || $activeHour != 0)
+                  @if( $isAdmin || $activeHour != 0 || $hoursUnlocked)
                   <a class="button level-item" onclick="formValidateDate()" >
                     <span class="icon">
                       <i class="fa fa-save"></i>
                     </span>
                     <span>Αποθήκευση</span>
                   </a>
-                  @if($letTeachersUnlockHours && $activeHour > 0)
+                  @if($letTeachersUnlockHours && $activeHour > 0 && ! $hoursUnlocked)
                   <a class="button level-item" onclick="unlockChks()" >
                     <span class="icon">
                       <i class="fa fa-key"></i>
