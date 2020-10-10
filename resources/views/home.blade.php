@@ -16,7 +16,7 @@
                           @php($now = Carbon\Carbon::Now()->format("d/m/y"))
                           @if($isAdmin)
                           <input class="input" id="date" name="date" type="text" value="{{ $date }}" size="3" />
-                          <a href="{{ url('/home' , $selectedTmima ) }}" onclick="changeDate(this, event)"><span class="icon"><i class="fa fa-search"></i></span></a>
+                          <a id="changeDate" href="{{ url('/home' , $selectedTmima ) }}" onclick="changeDate(this, event)"><span class="icon"><i class="fa fa-search"></i></span></a>
                           @else
                           {{ $now  }}
                           <input class="input" id="date" name="date" type="hidden" value="{{ $now }}" size="3" />
@@ -259,15 +259,16 @@ function unlockChks(){
 function changeDate(element, e){
 var mydate = document.getElementById('date').value
 mydate = "20" + mydate.substring(6,8) + mydate.substring(3,5) + mydate.substring(0,2)
-element.href = element.href + '/' + mydate
+element.href = "{{ url('/home', $selectedTmima ) }}" + '/' + mydate
 return true;
 }
 function formValidateDate(){
   var dateToCommit = document.getElementById('date').value
   if ( dateToCommit !== '{{$date}}'){
-    if (! confirm('Καταχωρίζετε απουσίες της ημέρας: {{$date}} σε διαφορετική ημέρα: ' + dateToCommit +'. Θέλετε να συνεχίσετε;')) return
+    document.getElementById('changeDate').click()
+  }else{
+    document.getElementById('formApousies').submit()
   }
-  document.getElementById('formApousies').submit()
 }
 </script>
 
