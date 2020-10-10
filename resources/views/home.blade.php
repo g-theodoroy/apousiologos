@@ -36,6 +36,7 @@
                     <div class="card-content">
                       <div class="columns is-centered">
                         <div class="column is-narrow">
+                    <div class="table-container">
                       <table class="table is-narrow" >
                         <thead>
                           <tr>
@@ -77,6 +78,7 @@
                       @endif
                       </table>
                     </div>
+                    </div>
                   </div>
                 </div>
                     @endif
@@ -115,6 +117,7 @@
                           @endif
                         </div>
 
+                      <div class="table-container">
                       <table class="table is-narrow">
                       <thead>
                         <tr>
@@ -168,6 +171,7 @@
                       @endforeach
                     </tbody>
                   </table>
+                </div>
 
                   <div class="level has-text-centered ">
                   <p class="card-header-title level-item">
