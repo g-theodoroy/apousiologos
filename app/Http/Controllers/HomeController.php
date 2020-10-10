@@ -102,7 +102,7 @@ class HomeController extends Controller
         ];
       }
       usort($arrStudents, function($a, $b) {
-      return $a['tmimata'] <=> $b['tmimata'] ?:
+      return $a['tmima'] <=> $b['tmima'] ?:
              $a['eponimo'] <=> $b['eponimo'] ?:
              $a['onoma'] <=> $b['onoma'] ?:
              strnatcasecmp($a['patronimo'], $b['patronimo']);
@@ -133,7 +133,7 @@ class HomeController extends Controller
         }
       }
       if ($sumApousiesCheck == $sumApousies) $sumApousies = [];
-      
+
       //διαβάζω ρυθμίσεις από τον πίνακα configs
       $program = new Program;
       // οι ώρες του προγράμματος
