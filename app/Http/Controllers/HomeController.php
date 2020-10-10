@@ -107,6 +107,7 @@ class HomeController extends Controller
              $a['onoma'] <=> $b['onoma'] ?:
              strnatcasecmp($a['patronimo'], $b['patronimo']);
            });
+
       $taxeis = array();
       foreach( $arrStudents as $stu){
         if (! in_array(mb_substr($stu['tmima'], 0 , 1), $taxeis))$taxeis[] = mb_substr($stu['tmima'], 0 , 1);
@@ -114,24 +115,41 @@ class HomeController extends Controller
 
       $sumApousies = array();
       foreach ($taxeis as $taxi){
-        $sumApousies[$taxi]['1']= 0;
-        $sumApousies[$taxi]['2']= 0;
-        $sumApousies[$taxi]['3']= 0;
-        $sumApousies[$taxi]['total']= 0;
+        for($i = 1 ; $i < 8 ; $i++){
+          $sumApousies[$taxi]['eq'][$i]= 0;
+        }
+        for($i = 1 ; $i < 7 ; $i++){
+          $sumApousies[$taxi]['ov'][$i]= 0;
+        }
       }
+      for($i = 1 ; $i < 8 ; $i++){
+        $sumApousies['sums']['eq'][$i]= 0;
+      }
+      for($i = 1 ; $i < 7 ; $i++){
+        $sumApousies['sums']['ov'][$i]= 0;
+      }
+
       $sumApousiesCheck = $sumApousies;
-            foreach( $arrStudents as $stu){
+      foreach( $arrStudents as $stu){
         $appSum = array_sum(preg_split("//",$stu['apousies']));
         foreach ($taxeis as $taxi){
           if ($taxi == mb_substr($stu['tmima'], 0 , 1)){
-            if($appSum == '1') $sumApousies[$taxi]['1']= $sumApousies[$taxi]['1'] + 1;
-            if($appSum == '2') $sumApousies[$taxi]['2']= $sumApousies[$taxi]['2'] + 1;
-            if($appSum >= '3') $sumApousies[$taxi]['3']= $sumApousies[$taxi]['3'] + 1;
-            if($appSum) $sumApousies[$taxi]['total']= $sumApousies[$taxi]['total'] + 1;
+            for($i = 1 ; $i < 8 ; $i++){
+              if($appSum == $i) $sumApousies[$taxi]['eq'][$i]= $sumApousies[$taxi]['eq'][$i] + 1;
+            }
+            for($i = 1 ; $i < 7 ; $i++){
+              if($appSum >= $i) $sumApousies[$taxi]['ov'][$i]= $sumApousies[$taxi]['ov'][$i] + 1;
+            }
           }
-
+        }
+        for($i = 1 ; $i < 8 ; $i++){
+          if($appSum == $i) $sumApousies['sums']['eq'][$i]= $sumApousies['sums']['eq'][$i] + 1;
+        }
+        for($i = 1 ; $i < 7 ; $i++){
+          if($appSum >= $i) $sumApousies['sums']['ov'][$i]= $sumApousies['sums']['ov'][$i] + 1;
         }
       }
+
       if ($sumApousiesCheck == $sumApousies) $sumApousies = [];
 
       //διαβάζω ρυθμίσεις από τον πίνακα configs

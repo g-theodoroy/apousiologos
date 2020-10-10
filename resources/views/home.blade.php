@@ -36,16 +36,16 @@
                     <div class="card-content">
                       <div class="columns is-centered">
                         <div class="column is-narrow">
-                      <table class="table is-narrow">
+                      <table class="table is-narrow" >
                         <thead>
                           <tr>
-                            <th>Τάξη</th>
+                            <th class='has-text-centered' style="background-color: #f2f2f2;" >Τάξη</th>
                             @for($i=1; $i<8; $i++)
-                            <th>{{$i}}</th>
+                            <th style="background-color: #f2f2f2;">{{$i}}</th>
                             @endfor
-                            <th>Σύνολο</th>
+                            <th style="background-color: #f2f2f2;">Σύνολο</th>
                             @for($i=2; $i<7; $i++)
-                            <th>>={{$i}}</th>
+                            <th style="background-color: #f2f2f2;">>={{$i}}</th>
                             @endfor
                           </tr>
                         </thead>
@@ -62,6 +62,19 @@
                         </tr>
                           @endforeach
                         </tbody>
+                        @if(! $selectedTmima)
+                        <tfoot>
+                          <tr>
+                            <th style="background-color: #f2f2f2;">Σύνολα</th>
+                            @foreach($sumApousies['sums']['eq'] as $key => $value)
+                            <th class='has-text-centered' style="background-color: #f2f2f2;">{{$value ? $value : ''}}</th>
+                            @endforeach
+                          @foreach($sumApousies['sums']['ov'] as $key => $value)
+                          <th class='has-text-centered' style="background-color: #f2f2f2;">{{$value ? $value : ''}}</th>
+                          @endforeach
+                        </tr>
+                      </tfoot>
+                      @endif
                       </table>
                     </div>
                   </div>
