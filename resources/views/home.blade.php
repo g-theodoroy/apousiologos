@@ -331,13 +331,13 @@ function calculateDate(to){
   window.location.href="{{ url('/home', $selectedTmima ) }}" + '/' + dateToGo
 }
 function parseDate(input, format) {
-  format = format || 'dd/mm/yy'; // default format
+  format = format || 'dd/mm/yyyy'; // default format
   var parts = input.match(/(\d+)/g),
       i = 0, fmt = {};
   // extract date-part indexes from the format
-  format.replace(/(yy|dd|mm)/g, function(part) { fmt[part] = i++; });
+  format.replace(/(yyyy|dd|mm)/g, function(part) { fmt[part] = i++; });
 
-  return new Date(parts[ fmt['yy']], parts[fmt['mm']]-1, parts[fmt['dd']]);
+  return new Date(parts[ fmt['yyyy']], parts[fmt['mm']]-1, parts[fmt['dd']]);
 }
 
 </script>
