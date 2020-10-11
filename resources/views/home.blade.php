@@ -39,6 +39,7 @@
                                 <span class="icon"><i class="fa fa-angle-left"></i></span>
                               </a>
                             </p>
+                            <p class="control">
                             <a class="button is-static">
                               {{Carbon\Carbon::createFromFormat("!d/m/y", $date)->dayName}}
                             </a>
