@@ -77,6 +77,8 @@ class AdminController extends Controller
     Config::setConfigValueOf('letTeachersUnlockHours',$val);
     $val = request()->has('showFutureHours') ? 1 : null;
     Config::setConfigValueOf('showFutureHours',$val);
+    $val = request()->has('allowWeekends') ? 1 : null;
+    Config::setConfigValueOf('allowWeekends',$val);
     Config::setConfigValueOf('timeZone',request()->input('timeZone'));
     return redirect()->route('admin')->with( ['setDone' => 1] );
   }

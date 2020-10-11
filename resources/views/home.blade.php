@@ -12,16 +12,13 @@
                   {{ csrf_field() }}
                     <header class="card-header">
                       <div class="level">
-                        <p class="card-header-title level-item column is-narrow has-text-centered">
                           @php($now = Carbon\Carbon::Now()->format("d/m/y"))
-                          @if($isAdmin)
-                          <input class="input" id="date" name="date" type="text" value="{{ $date }}" size="3" />
-                          <a id="changeDate" href="{{ url('/home' , $selectedTmima ) }}" onclick="changeDate(this, event)"><span class="icon"><i class="fa fa-search"></i></span></a>
-                          @else
+                          @if(! $isAdmin)
+                          <p class="card-header-title level-item column is-narrow has-text-centered">
                           {{ $now  }}
                           <input class="input" id="date" name="date" type="hidden" value="{{ $now }}" size="3" />
-                          @endif
                         </p>
+                          @endif
                         <p class="box card-header-title level-item column">
                           @foreach($anatheseis as $anathesi)
                           <a href="{{ url('/home' , $anathesi->tmima ) }}" >{{$anathesi->tmima}}</a>&nbsp;
@@ -32,6 +29,37 @@
                         </p>
                       </div>
                     </header>
+                    @if($isAdmin)
+                    <div class="card-content">
+                      <div class="columns is-centered">
+                        <div class="column is-narrow level">
+                          <div class="field has-addons">
+                            <p class="control">
+                              <a class="button" onclick="calculateDate('-')">
+                                <span class="icon"><i class="fa fa-angle-left"></i></span>
+                              </a>
+                            </p>
+                            <a class="button is-static">
+                              {{Carbon\Carbon::createFromFormat("!d/m/y", $date)->dayName}}
+                            </a>
+                          </p>
+                            <p class="control">
+                              <input class="input level-item" id="date" name="date" type="text" value="{{ $date }}" size="5" />
+                            </p>
+                            <p class="control">
+                              <a class="button" onclick="calculateDate('+')">
+                                <span class="icon"><i class="fa fa-angle-right"></i></span>
+                              </a>
+                            </p>
+                            <p class="control">
+                              <a id="changeDate" class="button" href="{{ url('/home' , $selectedTmima ) }}" onclick="changeDate(this, event)"><span class="icon"><i class="fa fa-search"></i></span></a>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    @endif
+
                     @if($isAdmin && $sumApousies)
                     <div class="card-content">
                       <div class="columns is-centered">
@@ -42,11 +70,11 @@
                           <tr>
                             <th class='has-text-centered' style="background-color: #f2f2f2;" >Τάξη</th>
                             @for($i=1; $i<8; $i++)
-                            <th style="background-color: #f2f2f2;">{{$i}}</th>
+                            <th style="background-color: #f2f2f2;" title="Αρ. μαθητών με {{$i}} {{$i==1?'απουσία':'απουσίες'}}">{{$i}} </th>
                             @endfor
                             <th style="background-color: #f2f2f2;">Σύνολο</th>
                             @for($i=2; $i<7; $i++)
-                            <th style="background-color: #f2f2f2;">>={{$i}}</th>
+                            <th style="background-color: #f2f2f2;" title="Αρ. μαθητών με {{$i}} {{$i==1?'απουσία':'απουσίες'}} και πάνω">>={{$i}}</th>
                             @endfor
                           </tr>
                         </thead>
@@ -82,6 +110,7 @@
                   </div>
                 </div>
                     @endif
+
                     <div class="card-content">
                       <div class="columns is-centered">
                         <div class="column is-narrow">
@@ -89,9 +118,6 @@
                             @if(($selectedTmima && count($arrStudents)) || ($isAdmin && count($arrStudents)))
                           <p class="card-header-title level-item">
                             {{$selectedTmima?$selectedTmima:'Όλα τα τμήματα'}}
-                            @if($isAdmin)
-                            <br>{{$date}}
-                            @endif
                           </p>
 
                           @if(! $isAdmin && ! $activeHour && ! $hoursUnlocked)
@@ -287,6 +313,32 @@ function formValidateDate(){
     document.getElementById('formApousies').submit()
   }
 }
+function calculateDate(to){
+  mydateStr = document.getElementById('date').value
+  mydateStr =   mydateStr.substring(0,2) + '/' + mydateStr.substring(3,5) + '/' + "20" + mydateStr.substring(6,8)
+  mydate = parseDate(mydateStr)
+  if(to =='+'){
+    newdate = new Date(mydate.getTime() + 86400000); // + 1 day in ms
+  }else{
+    newdate = new Date(mydate.getTime() - 86400000); // + 1 day in ms
+  }
+  dateToGo = [
+    newdate.getFullYear(),
+    ('0' + (newdate.getMonth() + 1)).slice(-2),
+    ('0' + newdate.getDate()).slice(-2)
+  ].join('');
+  window.location.href="{{ url('/home', $selectedTmima ) }}" + '/' + dateToGo
+}
+function parseDate(input, format) {
+  format = format || 'dd/mm/yy'; // default format
+  var parts = input.match(/(\d+)/g),
+      i = 0, fmt = {};
+  // extract date-part indexes from the format
+  format.replace(/(yy|dd|mm)/g, function(part) { fmt[part] = i++; });
+
+  return new Date(parts[ fmt['yy']], parts[fmt['mm']]-1, parts[fmt['dd']]);
+}
+
 </script>
 
 @endsection

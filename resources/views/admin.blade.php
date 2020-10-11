@@ -280,6 +280,10 @@
                                   <td class="has-text-centered"><input name="showFutureHours" type="checkbox" @if(App\Config::getConfigValueOf('showFutureHours')) checked @endif ></td>
                                 </tr>
                                 <tr>
+                                  <td>Επιτρέπεται η εισαγωγή απουσιών Σαββατοκύριακο</td>
+                                  <td class="has-text-centered"><input name="allowWeekends" type="checkbox" @if(App\Config::getConfigValueOf('allowWeekends')) checked @endif ></td>
+                                </tr>
+                                <tr>
                                   <td>Ζώνη ώρας</td>
                                   <td class="has-text-centered"><input  name="timeZone" class="input has-text-centered" type="text" value="{{App\Config::getConfigValueOf('timeZone')}}"></td>
                                 </tr>

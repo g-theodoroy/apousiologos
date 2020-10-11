@@ -160,6 +160,8 @@ class HomeController extends Controller
       $timeZone = Config::getConfigValueOf('timeZone');
       // βρίσκω την ενεργή ώρα για πέρασμα απουσιών
       $activeHour = $program->get_active_hour(Carbon::Now($timeZone)->format("Hi"));
+      // αν είναι ΣΚ και δεν επιτρέπεται
+      if( Carbon::now()->isWeekend() && ! Config::getConfigValueOf('allowWeekends')) $activeHour = 0;
       // αν θέλουμε τις ώρες ξεκλείδωτες ή είμαστε Διαχειριστής
       if(Config::getConfigValueOf('hoursUnlocked') || Auth::user()->role_description() == "Διαχειριστής") $hoursUnlocked = 1;
       // επιτρέπεται στους να ξεκλειδώσουν τις ώρες;
