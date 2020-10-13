@@ -31,9 +31,9 @@
                     </header>
                     @if($isAdmin)
                     <div class="card-content">
-                      <div class="columns is-centered">
+                      <div class="columns is-mobile is-centered">
                         <div class="column is-narrow level">
-                          <div class="field has-addons">
+                          <div class="field has-addons level has-text-centered">
                             <p class="control">
                               <a class="button" onclick="calculateDate('-')">
                                 <span class="icon"><i class="fa fa-angle-left"></i></span>
@@ -45,7 +45,7 @@
                             </a>
                           </p>
                             <p class="control">
-                              <input class="input level-item" id="date" name="date" type="text" value="{{ $date }}" size="5" />
+                              <input class="input level-item has-text-centered" id="date" name="date" type="text" value="{{ $date }}" size="7" />
                             </p>
                             <p class="control">
                               <a class="button" onclick="calculateDate('+')">
@@ -53,7 +53,7 @@
                               </a>
                             </p>
                             <p class="control">
-                              <a id="changeDate" class="button" href="{{ url('/home' , $selectedTmima ) }}" onclick="changeDate(this, event)"><span class="icon"><i class="fa fa-search"></i></span></a>
+                              <a id="changeDate" class="button" href="{{ url('/home' , $selectedTmima ) }}" onclick="changeDate(this)"><span class="icon"><i class="fa fa-search"></i></span></a>
                             </p>
                           </div>
                         </div>
@@ -300,7 +300,7 @@ function unlockChks(){
     checkbox.disabled = false
   }
 }
-function changeDate(element, e){
+function changeDate(element){
 var mydate = document.getElementById('date').value
 mydate = "20" + mydate.substring(6,8) + mydate.substring(3,5) + mydate.substring(0,2)
 element.href = "{{ url('/home', $selectedTmima ) }}" + '/' + mydate
