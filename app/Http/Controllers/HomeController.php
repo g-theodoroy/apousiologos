@@ -32,9 +32,6 @@ class HomeController extends Controller
      */
     public function index($selectedTmima = 0, $date = null )
     {
-      // αρχικοποιώ την ημέρα αν δεν έχει έρθει με το url
-      if(! $date) $date = Carbon::now()->format("Ymd");
-
       // Αν έχει υποβληθεί η φόρμα
       if(request()->method() == 'POST'){
 
@@ -59,6 +56,21 @@ class HomeController extends Controller
           }
         }
       }// τέλος Αν έχει υποβληθεί η φόρμα
+
+      // αρχικοποιώ την ημέρα αν δεν έχει έρθει με το url
+      if(! $date) $date = Carbon::now()->format("Ymd");
+      // αν έχει οριστεί συγκεκριμμένη ημέρα από τον Διαχειριστή
+      $setCustomDate = Config::getConfigValueOf('setCustomDate');
+      // αν ο χρήστης δεν είναι Διαχειριστής
+      if(Auth::user()->role_description() !== "Διαχειριστής"){
+        if($setCustomDate){
+          // ή η συγκεκριμμένη ημέρα
+          $date = Carbon::createFromFormat("!d/m/y", $setCustomDate)->format("Ymd");
+        }else{
+          // ή σήμερα
+          $date = Carbon::now()->format("Ymd");
+        }
+      }
 
       // παίρνω τα τμηματα του χρήστη
       // ταξινόμηση με το μήκος του ονόματος + αλφαβητικά
@@ -170,8 +182,13 @@ class HomeController extends Controller
       $showFutureHours = Config::getConfigValueOf('showFutureHours');
       // παίρνω την ημέρα και αλλάζω το format της ημνιας από εεεεμμηη σε ηη/μμ/εε
       $date = Carbon::createFromFormat("!Ymd", $date)->format("d/m/y");
+      // αν έχει οριστεί συγκεκριμμένη ημέρα
+      // ξεκλειδώνω τις ώρες
+      if($setCustomDate){
+        $hoursUnlocked = 1;
+      }
 
-      return view('home' ,compact( 'date', 'anatheseis', 'selectedTmima', 'totalHours', 'activeHour', 'hoursUnlocked', 'letTeachersUnlockHours', 'showFutureHours', 'arrStudents', 'taxeis', 'sumApousies'));
+      return view('home' ,compact( 'date', 'anatheseis', 'selectedTmima', 'totalHours', 'activeHour', 'hoursUnlocked', 'letTeachersUnlockHours', 'showFutureHours', 'arrStudents', 'taxeis', 'sumApousies', 'setCustomDate'));
     }
 
 

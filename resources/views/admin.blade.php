@@ -284,6 +284,10 @@
                                   <td class="has-text-centered"><input name="allowWeekends" type="checkbox" @if(App\Config::getConfigValueOf('allowWeekends')) checked @endif ></td>
                                 </tr>
                                 <tr>
+                                  <td>Ορισμός Ημνιας εισαγωγής απουσιών</td>
+                                  <td class="has-text-centered"><input  name="setCustomDate" class="input has-text-centered" type="text" value="{{App\Config::getConfigValueOf('setCustomDate')}}"></td>
+                                </tr>
+                                <tr>
                                   <td>Ζώνη ώρας</td>
                                   <td class="has-text-centered"><input  name="timeZone" class="input has-text-centered" type="text" value="{{App\Config::getConfigValueOf('timeZone')}}"></td>
                                 </tr>

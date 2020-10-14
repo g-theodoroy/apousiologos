@@ -14,17 +14,17 @@
                       <div class="level">
                           @php($now = Carbon\Carbon::Now()->format("d/m/y"))
                           @if(! $isAdmin)
-                          <p class="card-header-title level-item column is-narrow has-text-centered">
-                          {{ $now  }}
-                          <input class="input" id="date" name="date" type="hidden" value="{{ $now }}" size="3" />
+                          <p class="card-header-title level-item column is-narrow has-text-centered {{  $setCustomDate ? 'has-background-warning' : '' }}">
+                          {{ $setCustomDate ? $setCustomDate : $now  }}
+                          <input class="input " id="date" name="date" type="hidden" value="{{  $setCustomDate ? $setCustomDate : $now }}" size="3" />
                         </p>
                           @endif
                         <p class="box card-header-title level-item column">
                           @foreach($anatheseis as $anathesi)
-                          <a href="{{ url('/home' , $anathesi->tmima ) }}" >{{$anathesi->tmima}}</a>&nbsp;
+                          <a href="{{ url('/home' , $anathesi->tmima ) }}/{{!$isAdmin && $setCustomDate ? Carbon\Carbon::createFromFormat("!d/m/y", $setCustomDate)->format("Ymd"): Carbon\Carbon::createFromFormat("!d/m/y", $date)->format("Ymd")}}" >{{$anathesi->tmima}}</a>&nbsp;
                           @endforeach
                           @if($isAdmin)
-                          <a href="{{ url('/home/0')}}" ><span class="icon"><i class="fa fa-times"></i></span></a>&nbsp;
+                          <a href="{{ url('/home/0')}}/{{Carbon\Carbon::createFromFormat("!d/m/y", $date)->format("Ymd")}}" ><span class="icon"><i class="fa fa-times"></i></span></a>&nbsp;
                           @endif
                         </p>
                       </div>
@@ -36,7 +36,7 @@
                           <div class="field has-addons level has-text-centered">
                             <p class="control">
                               <a class="button" onclick="calculateDate('-')">
-                                <span class="icon"><i class="fa fa-angle-left"></i></span>
+                                <span class="icon" title="Προηγούμενη ημέρα"><i class="fa fa-angle-left"></i></span>
                               </a>
                             </p>
                             <p class="control">
@@ -47,13 +47,20 @@
                             <p class="control">
                               <input class="input level-item has-text-centered" id="date" name="date" type="text" value="{{ $date }}" size="7" />
                             </p>
+                            @if($now !== $date)
+                            <p class="control">
+                              <a class="button" href="{{ url('/home' , $selectedTmima ) }}">
+                                <span class="icon" title="Σήμερα"><i class="fa fa-home"></i></span>
+                              </a>
+                            </p>
+                            @endif
                             <p class="control">
                               <a class="button" onclick="calculateDate('+')">
-                                <span class="icon"><i class="fa fa-angle-right"></i></span>
+                                <span class="icon" title="Επόμενη ημέρα"><i class="fa fa-angle-right"></i></span>
                               </a>
                             </p>
                             <p class="control">
-                              <a id="changeDate" class="button" href="{{ url('/home' , $selectedTmima ) }}" onclick="changeDate(this)"><span class="icon"><i class="fa fa-search"></i></span></a>
+                              <a id="changeDate" class="button" href="{{ url('/home' , $selectedTmima ) }}" onclick="changeDate(this)"><span class="icon" title="Βρες την ημέρα"><i class="fa fa-search"></i></span></a>
                             </p>
                           </div>
                         </div>
