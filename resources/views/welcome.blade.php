@@ -102,6 +102,7 @@
                   <img src="{{url('/images/logo.png')}}" />
                 </a>
                   <br>Ηλεκτρονικός Απουσιολόγος
+                  <br>{{App\Config::getConfigValueOf('schoolName')}}
                   <p class="versioninfo">GΘ @ Laravel</p>
                 </div>
             </div>

@@ -30,7 +30,7 @@
 
                     <div class="navbar-menu" id="navMenu">
                         <div class="navbar-start"></div>
-
+                        <span class="navbar-item ">{{App\Config::getConfigValueOf('schoolName')}}</span>
                         <div class="navbar-end">
                             @if (Auth::guest())
                               <a class="navbar-item " href="{{ route('about') }}">Περί...</a>
