@@ -11,7 +11,7 @@
                   <form name="formApousies" id="formApousies" role="form" method="POST" action="{{ url('/home', $selectedTmima ) }}" onsubmit="event.preventDefault();formValidateDate()">
                   {{ csrf_field() }}
                     <header class="card-header">
-                      <div class="level">
+                      <div class="level is-mobile">
                           @php($now = Carbon\Carbon::Now()->format("d/m/y"))
                           @if(! $isAdmin)
                           <p class="card-header-title level-item column is-narrow has-text-centered {{  $setCustomDate ? 'has-background-warning' : '' }}">
