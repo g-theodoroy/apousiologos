@@ -17,7 +17,7 @@ class CreateStudentsTable extends Migration
           $table->id();
           $table->string('eponimo');
           $table->string('onoma');
-          $table->string('patronimo');
+          $table->string('patronimo')->nullable();
           $table->timestamps();
         });
     }

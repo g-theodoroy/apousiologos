@@ -44,7 +44,7 @@ class MathitesExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
     */
     public function collection()
     {
-      $students = Student::whereHas('tmimata')->orderby('eponimo')->orderby('onoma')->orderby('patronimo')->with('tmimata')->get();
+      $students = Student::orderby('eponimo')->orderby('onoma')->orderby('patronimo')->with('tmimata')->get();
       $arrStudents = array();
       foreach($students as $stu){
         $arrStudents[] = [
@@ -52,7 +52,7 @@ class MathitesExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
           'eponimo' => $stu->eponimo,
           'onoma' => $stu->onoma,
           'patronimo' => $stu->patronimo,
-          'tmimata' => $stu->tmimata[0]->where('student_id', $stu->id)->orderByRaw('LENGTH(tmima)')->orderby('tmima')->pluck('tmima')->toArray()
+          'tmimata' => $stu->tmimata[0] ? $stu->tmimata[0]->where('student_id', $stu->id)->orderByRaw('LENGTH(tmima)')->orderby('tmima')->pluck('tmima')->toArray() : []
         ];
       }
 

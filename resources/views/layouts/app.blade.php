@@ -13,6 +13,7 @@
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet" />
+        <link rel="icon" href="{{ URL::asset('favicon.ico') }}" type="image/x-icon"/>
     </head>
     <body>
         <div id="app">
@@ -47,9 +48,15 @@
                                     <a class="navbar-item" href="{{ route('home') }}">
                                         Αρχική
                                     </a>
-                                      <a class="navbar-item" href="{{ route('admin') }}">
-                                          Διαχείριση
-                                      </a>
+                                    <a class="navbar-item" href="{{ route('admin') }}">
+                                        Διαχείριση
+                                    </a>
+                                    <a class="navbar-item" href="{{ route('teachers') }}">
+                                        Καθηγητές
+                                    </a>
+                                    <a class="navbar-item" href="{{ route('students') }}">
+                                        Μαθητές
+                                    </a>
                                       <a class="navbar-item" href="{{ route('export') }}">
                                           Εξαγωγή xls
                                       </a>

@@ -7,5 +7,9 @@
     "/fonts/fontawesome-webfont.ttf": "/fonts/fontawesome-webfont.ttf",
     "/fonts/fontawesome-webfont.woff": "/fonts/fontawesome-webfont.woff",
     "/fonts/fontawesome-webfont.woff2": "/fonts/fontawesome-webfont.woff2",
-    "/fonts/FontAwesome.otf": "/fonts/FontAwesome.otf"
+    "/fonts/FontAwesome.otf": "/fonts/FontAwesome.otf",
+    "/js/jquery.min.js": "/js/jquery.min.js",
+    "/js/jquery.dataTables.min.js": "/js/jquery.dataTables.min.js",
+    "/js/dataTables.bulma.min.js": "/js/dataTables.bulma.min.js",
+    "/css/dataTables.bulma.min.css": "/css/dataTables.bulma.min.css"
 }

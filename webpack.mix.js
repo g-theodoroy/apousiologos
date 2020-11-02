@@ -16,3 +16,9 @@ mix.js('resources/js/app.js', 'public/js')
 
 mix.copy('node_modules/font-awesome/css/font-awesome.min.css', 'public/css');
 mix.copy('node_modules/font-awesome/fonts/*', 'public/fonts');
+
+mix.copy('node_modules/jquery/dist/jquery.min.js', 'public/js');
+
+mix.copy('node_modules/datatables.net/js/jquery.dataTables.min.js', 'public/js');
+mix.copy('node_modules/datatables-bulma/js/dataTables.bulma.min.js', 'public/js');
+mix.copy('node_modules/datatables-bulma/css/dataTables.bulma.min.css', 'public/css');

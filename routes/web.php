@@ -54,3 +54,15 @@ Route::get('/delkath', 'AdminController@delKathigites')->name('delkath');
 Route::get('/delmath', 'AdminController@delStudents')->name('delmath');
 Route::get('/delprog', 'AdminController@delProgram')->name('delprog');
 Route::get('/delapou/{keep?}', 'AdminController@delApousies')->name('delapou');
+
+Route::get('/students', 'StudentsController@index')->name('students');
+Route::get('/students/getStudents', 'StudentsController@getStudents')->name('students.getStudents');
+Route::post('/students', 'StudentsController@store')->name('students.store');
+Route::get('/students/edit/{am?}', 'StudentsController@edit')->name('students.edit');
+Route::delete('/students/delete/{am?}', 'StudentsController@delete')->name('students.delete');
+
+Route::get('/teachers', 'TeachersController@index')->name('teachers');
+Route::get('/teachers/getTeachers', 'TeachersController@getTeachers')->name('teachers.getTeachers');
+Route::post('/teachers', 'TeachersController@store')->name('teachers.store');
+Route::get('/teachers/edit/{id?}', 'TeachersController@edit')->name('teachers.edit');
+Route::delete('/teachers/delete/{id?}', 'TeachersController@delete')->name('teachers.delete');
