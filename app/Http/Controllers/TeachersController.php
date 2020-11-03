@@ -84,7 +84,7 @@ class TeachersController extends Controller
     }
 
       Anathesi::where('user_id', $user->id)->delete();
-      $tmimata = explode(PHP_EOL, $request->tmimata);
+      $tmimata = explode("\n", str_replace(["\r\n","\n\r","\r"],"\n",$request->tmimata));
 
       foreach ($tmimata as $tmima){
         if(trim($tmima)){
@@ -116,7 +116,7 @@ class TeachersController extends Controller
         'id'=> $kath['id'],
         'name' => $kath['name'],
         'email' => $kath['email'],
-        'tmimata' => join(PHP_EOL, $anatheseis),
+        'tmimata' => join("\n", $anatheseis),
       ];
     return response()->json($arrKathigites[0]);
     }
