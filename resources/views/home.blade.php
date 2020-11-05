@@ -133,7 +133,7 @@
                             Εκτός ωραρίου
                           </p>
                           @endif
-                          @if(  $isAdmin ||  $activeHour != 0 || $hoursUnlocked)
+                          @if(  $isAdmin ||  $activeHour != 0 || ($hoursUnlocked && $allowTeachersSaveAtNotActiveHour))
                           <a class="button level-item" onclick="formValidateDate()" >
                             <span class="icon">
                               <i class="fa fa-save"></i>
@@ -198,7 +198,7 @@
                           @else
                             <th @if($i % 2 != 0) style="background-color: #f2f2f2;" @endif >
                           @endif
-                            <input type="checkbox" onclick="chkClicked(this.checked,{{$student['id']}},{{$i-1}})" @if($student['apousies'][$i-1]) checked @endif @if( ! $hoursUnlocked && $i != $activeHour ) disabled @endif >
+                            <input type="checkbox" onclick="chkClicked(this.checked,{{$student['id']}},{{$i-1}})" @if($student['apousies'][$i-1]) checked @endif @if( ! $hoursUnlocked && $i != $activeHour ) disabled @endif   @if($hoursUnlocked && ! $allowTeachersSaveAtNotActiveHour && ! $isAdmin) onchange="this.checked = !this.checked" @endif >
                           </th>
                           @endfor
 
@@ -219,7 +219,7 @@
                     Εκτός ωραρίου
                   </p>
                   @endif
-                  @if( $isAdmin || $activeHour != 0 || $hoursUnlocked)
+                  @if( $isAdmin || $activeHour != 0 || ($hoursUnlocked && $allowTeachersSaveAtNotActiveHour))
                   <a class="button level-item" onclick="formValidateDate()" >
                     <span class="icon">
                       <i class="fa fa-save"></i>

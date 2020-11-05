@@ -187,8 +187,9 @@ class HomeController extends Controller
       if($setCustomDate){
         $hoursUnlocked = 1;
       }
+      $allowTeachersSaveAtNotActiveHour = Config::getConfigValueOf('allowTeachersSaveAtNotActiveHour');
 
-      return view('home' ,compact( 'date', 'anatheseis', 'selectedTmima', 'totalHours', 'activeHour', 'hoursUnlocked', 'letTeachersUnlockHours', 'showFutureHours', 'arrStudents', 'taxeis', 'sumApousies', 'setCustomDate'));
+      return view('home' ,compact( 'date', 'anatheseis', 'selectedTmima', 'totalHours', 'activeHour', 'hoursUnlocked', 'letTeachersUnlockHours', 'showFutureHours', 'arrStudents', 'taxeis', 'sumApousies', 'setCustomDate', 'allowTeachersSaveAtNotActiveHour'));
     }
 
 

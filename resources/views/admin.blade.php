@@ -272,6 +272,11 @@
                                   <td class="has-text-centered"><input name="hoursUnlocked" type="checkbox" @if(App\Config::getConfigValueOf('hoursUnlocked')) checked @endif ></td>
                                 </tr>
                                 <tr>
+                                  <tr>
+                                    <td>Επιτρέπεται η εισαγωγή απουσιών εκτός ωραρίου</td>
+                                    <td class="has-text-centered"><input name="allowTeachersSaveAtNotActiveHour" type="checkbox" @if(App\Config::getConfigValueOf('allowTeachersSaveAtNotActiveHour')) checked @endif ></td>
+                                  </tr>
+                                  <tr>
                                   <td>Επιτρέπεται στους καθηγητές να ξεκλειδώνουν τις ώρες</td>
                                   <td class="has-text-centered"><input name="letTeachersUnlockHours" type="checkbox" @if(App\Config::getConfigValueOf('letTeachersUnlockHours')) checked @endif ></td>
                                 </tr>

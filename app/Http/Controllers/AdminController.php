@@ -73,6 +73,8 @@ class AdminController extends Controller
     Config::setConfigValueOf('allowRegister',$val);
     $val = request()->has('hoursUnlocked') ? 1 : null;
     Config::setConfigValueOf('hoursUnlocked',$val);
+    $val = request()->has('allowTeachersSaveAtNotActiveHour') ? 1 : null;
+    Config::setConfigValueOf('allowTeachersSaveAtNotActiveHour',$val);
     $val = request()->has('letTeachersUnlockHours') ? 1 : null;
     Config::setConfigValueOf('letTeachersUnlockHours',$val);
     $val = request()->has('showFutureHours') ? 1 : null;
