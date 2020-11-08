@@ -13,11 +13,13 @@
                         <p class="card-header-title">
                           Καθηγητές
                         </p>
-                        <a class="button" href="javascript:void(0)" id="newTeacher">Εγγραφή καθηγητή</a>
+                        <a class="button" href="javascript:void(0)" id="newTeacher">
+                          <span class="icon"><i class="fa fa-user-plus"></i></span>
+                          <span>Εγγραφή καθηγητή</span>
+                        </a>
                     </header>
                     <div class="card-content">
-                      <div class="table-container">
-                          <table class="table yajra-datatable is-fullwidth is-hoverable" >
+                          <table class="table yajra-datatable is-fullwidth is-striped" >
                             <thead>
                               <tr>
                                 <th class='has-text-centered' style="background-color: #f2f2f2;" >Α/Α</th>
@@ -28,7 +30,6 @@
                               </tr>
                             </thead>
                           </table>
-                        </div>
                     </div>
                 </nav>
             </div>
@@ -39,7 +40,7 @@
           <div class="modal-background"></div>
           <div class="modal-card">
             <header class="modal-card-head">
-              <p id="modalTitle" class="modal-card-title">Εισαγωγή Καθηγητή</p>
+              <p id="modalTitle" class="modal-card-title">Εγγραφή Καθηγητή</p>
               <button id="closeModalTeacher" class="delete" aria-label="close" ></button>
             </header>
             <section class="modal-card-body">
@@ -161,6 +162,7 @@
 
         $('body').on('click', '#newTeacher', function () {
           $('#ajaxModel').addClass("is-active");
+          $('#modalTitle').html("Εγγραφή καθηγητή");
         })
         $('body').on('click', '#closeModalTeacher', function () {
           $('#teachersForm').trigger("reset")

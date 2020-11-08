@@ -46,6 +46,13 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('configs')->insert([
+          'key' => 'allowTeachersSaveAtNotActiveHour',
+          'value' => null,
+          'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+          'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('configs')->insert([
           'key' => 'showFutureHours',
           'value' => null,
           'created_at' => Carbon::now()->format('Y-m-d H:i:s'),

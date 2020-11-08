@@ -63,7 +63,7 @@
                           <span class="icon">
                             <i class="fa fa-download"></i>
                           </span>
-                          <span>Εξαγωγή xls</span>
+                          <span>@if($kathigitesCount) Εξαγωγή xls @else Πρότυπο xls @endif</span>
                         </a>
                     </nav>
                     </div>
@@ -133,7 +133,7 @@
                             <span class="icon">
                               <i class="fa fa-download"></i>
                             </span>
-                            <span>Εξαγωγή xls</span>
+                            <span>@if($studentsCount) Εξαγωγή xls @else Πρότυπο xls @endif</span>
                           </a>
                     </nav>
                     </div>
@@ -201,8 +201,68 @@
                                   <span class="icon">
                                     <i class="fa fa-download"></i>
                                   </span>
-                                  <span>Εξαγωγή xls</span>
+                                  <span>@if($programCount) Εξαγωγή xls @else Πρότυπο xls @endif</span>
                                 </a>
+                            </nav>
+                            </div>
+                          </form>
+                        </nav>
+                    </div>
+                </div>
+
+                <div class="columns is-marginless is-centered">
+                    <div class="column is-10">
+                        <nav class="card">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                   Εισαγωγή απουσιών από το myschool
+                                </p>
+                                @if(Session::get('insertedStudentsApousiesCount'))
+                                <p class="card-header-title has-text-success">
+                                    Έγινε εισαγωγή-ενημέρωση  {{Session::get('insertedDaysApousiesCount')}} ημερών με απουσίες
+                                    για {{Session::get('insertedStudentsApousiesCount')}} μαθητές
+                                </p>
+                                @endif
+                            </header>
+
+                            <form name="formMyschApou" id="formMyschApou" role="form" method="POST" action="{{ url('/insertMyschoolApousies') }}" enctype="multipart/form-data" >
+                            {{ csrf_field() }}
+                            <div class="card-content">
+                              <nav class="level is-mobile">
+                                <div id="file-myschApou" class="file has-name level-item has-text-centered">
+                                  <label class="file-label">
+                                    <input class="file-input" type="file" name="file_myschAp">
+                                    <span class="file-cta">
+                                      <span class="file-icon">
+                                        <i class="fa fa-search"></i>
+                                      </span>
+                                      <span class="file-label">
+                                        Επιλογή xls
+                                      </span>
+                                    </span>
+                                    <span class="file-name">
+                                      ---
+                                    </span>
+                                  </label>
+                                </div>
+                                <button id="sbmt_myschAp" class="button level-item" type="submit" disabled >
+                                  <span class="icon">
+                                    <i class="fa fa-upload"></i>
+                                  </span>
+                                  <span>Εισαγωγή xls</span>
+                                </button>
+                                <a class="button level-item" href="{{ url('/export/apouMyschoolxls') }}" >
+                                  <span class="icon">
+                                    <i class="fa fa-download"></i>
+                                  </span>
+                                  <span>Πρότυπο xls</span>
+                                </a>
+                            </nav>
+                            <nav>
+                              <p class="help">Κάνοντας εισαγωγή απουσιών από το Myschool δεν έχουμε δεδομένα για την ώρα (1η - 7η) που έγιναν οι απουσίες.
+                                Οι απουσίες που δεν είναι καταχωρισμενες ή διαφέρουν (περισσότερες ή λιγότερες) από τις εισηγμένες καταχωρίζονται ως εξής:
+                                <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-> περισσότερες -> προστίθενται στις πρώτες ώρες χωρίς απουσία
+                                <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-> λιγότερες -> αφαιρούνται από τις τελευταίες ώρες με απουσία</p>
                             </nav>
                             </div>
                           </form>
@@ -347,6 +407,14 @@
       document.getElementById("sbmt_prog").disabled = false;
       const fileName = document.querySelector('#file-program .file-name');
       fileName.textContent = fileInput_p.files[0].name;
+    }
+  }
+  const fileInput_a = document.querySelector('#file-myschApou input[type=file]');
+  fileInput_a.onchange = () => {
+    if (fileInput_a.files.length > 0) {
+      document.getElementById("sbmt_myschAp").disabled = false;
+      const fileName = document.querySelector('#file-myschApou .file-name');
+      fileName.textContent = fileInput_a.files[0].name;
     }
   }
   function chkDelKathigites(e){

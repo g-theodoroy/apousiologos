@@ -3,13 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Schema;
 
 class Config extends Model
 {
   protected $fillable = ['key', 'value'];
 
   public static function getConfigValueOf($key) {
-      $c = Config::firstOrCreate(['key' => $key]);
+      if( Schema::hasTable('configs')){
+        $c = Config::firstOrCreate(['key' => $key]);
+      }
       return $c->value;
   }
 

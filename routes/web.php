@@ -44,10 +44,12 @@ Route::post('/export/apouxls', 'AdminController@exportApousiesXls')->name('apoux
 Route::get('/export/kathxls', 'AdminController@exportKathigitesXls')->name('kathxls');
 Route::get('/export/mathxls', 'AdminController@exportMathitesXls')->name('mathxls');
 Route::get('/export/progxls', 'AdminController@exportProgramXls')->name('progxls');
+Route::get('/export/apouMyschoolxls', 'AdminController@exportApousiesMyschoolXls')->name('apouMyschoolxls');
 
 Route::post('/insertusers', 'AdminController@insertUsers')->name('insertusers');
 Route::post('/insertstudents', 'AdminController@insertStudents')->name('insertstudents');
 Route::post('/insertprogram', 'AdminController@insertProgram')->name('insertprogram');
+Route::post('/insertMyschoolApousies', 'AdminController@insertMyschoolApousies')->name('insertMyschoolApousies');
 Route::post('/set', 'AdminController@setConfigs')->name('set');
 
 Route::get('/delkath', 'AdminController@delKathigites')->name('delkath');
@@ -60,6 +62,10 @@ Route::get('/students/getStudents', 'StudentsController@getStudents')->name('stu
 Route::post('/students', 'StudentsController@store')->name('students.store');
 Route::get('/students/edit/{am?}', 'StudentsController@edit')->name('students.edit');
 Route::delete('/students/delete/{am?}', 'StudentsController@delete')->name('students.delete');
+Route::get('/students/apousies/{am?}', 'StudentsController@apousies')->name('students.apousies');
+Route::get('/apousies/edit/{id?}', 'StudentsController@apousiesEdit')->name('apousies.edit');
+Route::post('/apousies', 'StudentsController@apousiesStore')->name('apousies.store');
+Route::delete('/apousies/delete/{id?}', 'StudentsController@apousiesDelete')->name('apousies.delete');
 
 Route::get('/teachers', 'TeachersController@index')->name('teachers');
 Route::get('/teachers/getTeachers', 'TeachersController@getTeachers')->name('teachers.getTeachers');

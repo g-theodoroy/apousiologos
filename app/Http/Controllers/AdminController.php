@@ -7,10 +7,12 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\UsersImport;
 use App\Imports\StudentsImport;
 use App\Imports\ProgramImport;
+use App\Imports\ApousiesMyschoolImport;
 use App\Exports\ApousiesForDayExport;
 use App\Exports\KathigitesExport;
 use App\Exports\MathitesExport;
 use App\Exports\ProgramExport;
+use App\Exports\ApousiesMyschoolExport;
 use App\User;
 use App\Student;
 use App\Role;
@@ -67,6 +69,17 @@ class AdminController extends Controller
     Excel::import($import, request()->file('file_prog'));
     return redirect()->route('admin')->with( ['insertedProgram' => 1] );
   }
+
+  public function insertMyschoolApousies()
+  {
+    $import = new ApousiesMyschoolImport;
+    Excel::import($import, request()->file('file_myschAp'));
+    $insertedStudentsApousiesCount = $import->getStudentsApousiesCount();
+    $insertedDaysApousiesCount = $import->getDaysApousiesCount();
+    return redirect()->route('admin')->with( ['insertedStudentsApousiesCount' => $insertedStudentsApousiesCount,'insertedDaysApousiesCount' => $insertedDaysApousiesCount]);
+  }
+
+
   public function setConfigs()
   {
     $val = request()->has('allowRegister') ? 1 : null;
@@ -144,7 +157,7 @@ class AdminController extends Controller
     return Excel::download(new ApousiesForDayExport($apoDate, $eosDate), 'myschool_Eisagwgh_Apousiwn_Mazika_apo_Excel_by_GΘ' . $filenameDates .'.xls');
  }
 
- public function exportKathigitesXls()
+public function exportKathigitesXls()
  {
    return Excel::download(new KathigitesExport, 'Καθηγητές_και_Αναθέσεις_by_GΘ.xls');
 }
@@ -157,6 +170,10 @@ public function exportMathitesXls()
 public function exportProgramXls()
 {
   return Excel::download(new ProgramExport, 'Ωρολόγιο_Πρόγραμμα_by_GΘ.xls');
+}
+public function exportApousiesMyschoolXls()
+{
+  return Excel::download(new ApousiesMyschoolExport, 'Πρότυπο για εισαγωγή απουσιών από Myschool_by_GΘ.xls');
 }
 
 }

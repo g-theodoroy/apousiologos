@@ -50,7 +50,6 @@ class HomeController extends Controller
               'apousies' => $value,
               ]);
           }else{
-
             // αν κενό διαγράφω αν υπάρχει ΑΜ+ημνια
             Apousie::where('student_id', substr($key,2))->where('date', $date)->delete();
           }
