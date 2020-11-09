@@ -140,7 +140,7 @@
                             </span>
                             <span>Αποθήκευση</span>
                           </a>
-                          @if($letTeachersUnlockHours && $activeHour > 0)
+                          @if($letTeachersUnlockHours && $activeHour > 0  && ! $isAdmin && ! $allowTeachersSaveAtNotActiveHour)
                           <a class="button level-item" onclick="unlockChks()" >
                             <span class="icon">
                               <i class="fa fa-key"></i>
@@ -198,7 +198,7 @@
                           @else
                             <th @if($i % 2 != 0) style="background-color: #f2f2f2;" @endif >
                           @endif
-                            <input type="checkbox" onclick="chkClicked(this.checked,{{$student['id']}},{{$i-1}})" @if($student['apousies'][$i-1]) checked @endif @if( ! $hoursUnlocked && $i != $activeHour ) disabled @endif   @if($hoursUnlocked && $i != $activeHour && ! $allowTeachersSaveAtNotActiveHour && ! $isAdmin) onchange="this.checked = !this.checked" @endif >
+                            <input type="checkbox" onclick="chkClicked(this.checked,{{$student['id']}},{{$i-1}})" @if($student['apousies'][$i-1]) checked @endif @if( $i != $activeHour && ! $isAdmin && ! $allowTeachersSaveAtNotActiveHour) disabled @endif   @if($hoursUnlocked && $i != $activeHour && ! $allowTeachersSaveAtNotActiveHour && ! $isAdmin) disabled @endif >
                           </th>
                           @endfor
 
@@ -226,7 +226,7 @@
                     </span>
                     <span>Αποθήκευση</span>
                   </a>
-                  @if($letTeachersUnlockHours && $activeHour > 0 )
+                  @if($letTeachersUnlockHours && $activeHour > 0 && ! $isAdmin  && ! $allowTeachersSaveAtNotActiveHour)
                   <a class="button level-item" onclick="unlockChks()" >
                     <span class="icon">
                       <i class="fa fa-key"></i>
@@ -305,7 +305,6 @@ function unlockChks(){
   var checkboxes = document.querySelectorAll('input[type="checkbox"]')
   for (var checkbox of checkboxes) {
     checkbox.disabled = false
-    checkbox.onchange = ""
   }
 }
 function changeDate(element){
