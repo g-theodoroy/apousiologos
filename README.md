@@ -47,6 +47,12 @@ MAIL_FROM_NAME="${APP_NAME}"
 
 **Ανεβάστε τον φάκελο στον server**
 
+
+## Ρύθμιση - χρήση
+
+[Οδηγίες ρύθμισης κ χρήσης Ηλ.Απουσιολόγου.pdf](https://github.com/g-theodoroy/apousiologos/blob/main/public/files/%CE%9F%CE%B4%CE%B7%CE%B3%CE%AF%CE%B5%CF%82%20%CF%81%CF%8D%CE%B8%CE%BC%CE%B9%CF%83%CE%B7%CF%82%20%CE%BA%20%CF%87%CF%81%CE%AE%CF%83%CE%B7%CF%82%20%CE%97%CE%BB.%CE%91%CF%80%CE%BF%CF%85%CF%83%CE%B9%CE%BF%CE%BB%CF%8C%CE%B3%CE%BF%CF%85.pdf)
+
+
 # GΘ@2020
 
 
